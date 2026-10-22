@@ -106,7 +106,7 @@ footer b{color:var(--txt)}
   <div class="hero">
     <span class="pill">Renting Colombia × Jeeves · Simulador de eficiencia financiera</span>
     <h1>Tu operación de <span class="gold">combustible</span> con tarjetas virtuales de tesorería con <span class="green">0% interés</span>.</h1>
-    <p class="lead">Cupo revolvente de hasta COP 7.000 millones para la operación de combustible con tu proveedor, restringido solo a ese rubro, con cupo ajustable en tiempo real, 37 días para pagar, exención del 4x1000 y 1% de cashback los primeros 6 meses. Todo integrado con SAP.</p>
+    <p class="lead">Cupo revolvente de hasta COP 7.000 millones para la operación de combustible con tu proveedor, ajustable en tiempo real.</p>
     <div class="stats">
       <div class="stat"><b>37 días</b><span>sin intereses</span></div>
       <div class="stat"><b>4x1000</b><span>exención total</span></div>
@@ -197,7 +197,7 @@ footer b{color:var(--txt)}
     <div class="plan">
       <div class="pc g">
         <h3>Plan Gold · Proyecto Combustible</h3>
-        <div class="price">USD 3.000 <span style="font-size:15px;color:var(--mut);font-weight:500">/ año · 10 usuarios</span></div>
+        <div class="price">USD 3.000 <span style="font-size:15px;color:var(--mut);font-weight:500">/ año · 10 usuarios</span><div style="font-size:17px;color:var(--txt);font-weight:600;margin-top:4px">≈ <span id="planCOP">COP 9.491.280</span> <span style="font-size:13px;color:var(--mut);font-weight:500">/ año · TRM <span id="planTRM">3.163,76</span></span></div></div>
         <ul>
           <li>Tarjeta virtual de tesorería para combustible</li>
           <li>Controles por rubro, monto, fechas y horarios</li>
@@ -253,6 +253,7 @@ function calc(){
   let ret=0,retTxt='';
   if($('modRet').checked){const pc=v('comision');if(pc<3){ret=(3-pc)/100*v('efectivo')*12;retTxt=fmt(ret);}else{retTxt='Sin ahorro (comisión ≥ 3%)';}}
   const costo=plan*trm;
+  $('planCOP').textContent='COP '+Math.round(costo).toLocaleString('es-CO');$('planTRM').textContent=trm.toLocaleString('es-CO',{minimumFractionDigits:2,maximumFractionDigits:2});
   const t1=gmf+cb+fact+ret,t2=gmf+fact+ret;
   const n1=t1-costo,n2=t2-costo;
   $('gmfPrev').value=fmt(gmf);$('cbPrev').value=fmt(cb);
