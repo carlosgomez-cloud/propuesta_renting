@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renting Colombia × Jeeves · Simulador de Eficiencia Financiera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0E;--card:#141418;--card2:#17171C;--green:#00D68F;--gold:#C9A84C;--txt:#F5F5F7;--mut:#9C9CA6;--bd:#26262E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:'Inter Tight',Inter,sans-serif;letter-spacing:-.02em}
+.gold{color:var(--gold)}.green{color:var(--green)}
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;padding:26px 0}
+.brand{font-family:'Inter Tight';font-weight:800;font-size:22px;letter-spacing:.18em}
+.brand small{display:block;font-size:10px;letter-spacing:.2em;color:var(--mut);font-weight:500}
+.clogo{height:46px;width:auto}
+/* hero */
+.hero{padding:30px 0 50px;border-bottom:1px solid var(--bd)}
+.pill{display:inline-block;border:1px solid var(--bd);border-radius:999px;padding:6px 14px;font-size:12px;color:var(--mut);margin-bottom:18px}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.08;font-weight:700;max-width:860px}
+.hero p.lead{color:var(--mut);font-size:17px;max-width:760px;margin-top:18px}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px 16px}
+.stat b{display:block;font-family:'Inter Tight';font-size:22px;color:var(--gold)}
+.stat span{font-size:12px;color:var(--mut)}
+.cards{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-top:34px}
+.cc{display:flex;flex-direction:column;gap:8px}
+.cc-photo{background:#000;border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+.cc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.cc span{font-size:12px;color:var(--mut)}
+.p-elite{width:190px;height:245px}.p-corp{width:260px;height:156px}.p-virt{width:230px;height:139px}.p-pay{width:280px;height:125px}
+/* sections */
+section{padding:56px 0;border-bottom:1px solid var(--bd)}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.sh h2{font-size:clamp(24px,3vw,34px)}
+.sh p{color:var(--mut);max-width:640px;margin-top:6px}
+.toggle-btn{background:transparent;border:1px solid var(--bd);color:var(--txt);border-radius:999px;padding:10px 18px;font:500 14px Inter;cursor:pointer}
+.toggle-btn:hover{border-color:var(--gold)}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:22px;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px}
+input[type=number],input[type=text]{width:100%;background:var(--card2);border:1px solid var(--bd);color:var(--txt);border-radius:10px;padding:11px 12px;font:500 15px Inter}
+input:disabled{opacity:.85;color:var(--gold)}
+.hint{font-size:12px;color:var(--mut);margin-top:5px}
+.mod{border-top:1px solid var(--bd);margin-top:20px;padding-top:18px}
+.mod-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mod-h h3{font-size:17px}
+.sw{position:relative;width:46px;height:26px}
+.sw input{opacity:0;width:0;height:0}
+.sw span{position:absolute;inset:0;background:#2b2b33;border-radius:99px;cursor:pointer;transition:.2s}
+.sw span:before{content:'';position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.sw input:checked+span{background:var(--green)}
+.sw input:checked+span:before{transform:translateX(20px)}
+.note{font-size:12.5px;color:var(--mut);background:var(--card2);border:1px dashed var(--bd);border-radius:12px;padding:14px;margin-top:18px}
+.res-title{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin:6px 0 12px}
+.rs{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px}
+.rs small{color:var(--mut);font-size:13px}
+.rs b{display:block;font-family:'Inter Tight';font-size:24px;margin-top:4px;color:var(--green)}
+.tot{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+.tt{background:linear-gradient(180deg,#121a16,#141418);border:1px solid #1f3a2f;border-radius:18px;padding:22px}
+.tt small{color:var(--mut)}
+.tt .big{font-family:'Inter Tight';font-size:34px;font-weight:700;color:var(--green);margin:4px 0 10px}
+.tt .net{font-size:14px;color:var(--mut);border-top:1px solid var(--bd);padding-top:10px}
+.tt .net b{color:var(--txt);font-size:18px}
+.roe{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+.rr{background:linear-gradient(180deg,#1f1a0d,#141418);border:1px solid #4a3d18;border-radius:18px;padding:24px;text-align:center}
+.rr small{color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-size:12px}
+.rr .big{font-family:'Inter Tight';font-size:52px;font-weight:800;color:var(--gold);line-height:1.1;margin-top:6px}
+/* diag table */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--bd);vertical-align:top;font-size:14.5px}
+th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);background:var(--card2)}
+td:first-child{font-weight:600;width:22%}
+td:nth-child(2){color:var(--mut)}
+tr:last-child td{border-bottom:none}
+.tbl{overflow-x:auto}
+/* plan */
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.pc{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:24px}
+.pc.g{border-color:#4a3d18}
+.pc h3{font-size:20px;margin-bottom:4px}
+.pc .price{font-family:'Inter Tight';font-size:30px;font-weight:700;color:var(--gold);margin:6px 0 14px}
+.pc ul{list-style:none}
+.pc li{padding:7px 0 7px 24px;position:relative;font-size:14.5px;border-bottom:1px solid #1d1d23}
+.pc li:before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+.warn{margin-top:14px;font-size:13.5px;background:#1f1a0d;border:1px solid #4a3d18;color:#e9d9a8;border-radius:12px;padding:12px 14px}
+footer{padding:36px 0 50px;color:var(--mut);font-size:13.5px}
+footer b{color:var(--txt)}
+@media(max-width:640px){.p-elite{width:150px;height:195px}.p-corp,.p-virt,.p-pay{width:100%;height:auto;aspect-ratio:1.7}.cc{width:100%}.cc:first-child{width:auto}.clogo{height:34px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">JEEVES<small>Propuesta para</small></div>
+    <img class="clogo" src="renting-logo.png" alt="Renting Colombia">
+  </div>
+
+  <div class="hero">
+    <span class="pill">Renting Colombia × Jeeves · Simulador de eficiencia financiera</span>
+    <h1>Tu operación de <span class="gold">combustible</span> con tarjetas virtuales de tesorería con <span class="green">0% interés</span>.</h1>
+    <p class="lead">Cupo revolvente de hasta COP 7.000 millones para la operación de combustible con tu proveedor, restringido solo a ese rubro, con cupo ajustable en tiempo real, 37 días para pagar, exención del 4x1000 y 1% de cashback los primeros 6 meses. Todo integrado con SAP.</p>
+    <div class="stats">
+      <div class="stat"><b>37 días</b><span>sin intereses</span></div>
+      <div class="stat"><b>4x1000</b><span>exención total</span></div>
+      <div class="stat"><b>1%</b><span>cashback · 6 meses</span></div>
+      <div class="stat"><b>COP 7.000MM</b><span>cupo para combustible</span></div>
+    </div>
+    <div class="cards">
+      <div class="cc"><div class="cc-photo p-elite"><img src="jeeves-world-elite.png" alt="Tarjeta World Elite"></div><span>World Elite</span></div>
+      <div class="cc"><div class="cc-photo p-corp"><img src="jeeves-corporativa.png" alt="Tarjeta Corporativa"></div><span>Tarjeta Corporativa</span></div>
+      <div class="cc"><div class="cc-photo p-virt"><img src="jeeves-virtual.png" alt="Tarjeta Virtual"></div><span>Tarjeta Virtual · Combustible</span></div>
+      <div class="cc"><div class="cc-photo p-pay"><img src="jeeves-pay.png" alt="Jeeves Pay"></div><span>Jeeves Pay · Dispersión a proveedores</span></div>
+    </div>
+  </div>
+
+  <section id="calc">
+    <div class="sh">
+      <div>
+        <h2>Simulador de eficiencia financiera</h2>
+        <p>Calculado sobre la operación de combustible (tarjetas) y el Plan Gold para 10 usuarios. No incluye el módulo opcional de Jeeves Pay. Con el botón puedes ver y ajustar todos los supuestos (gasto mensual, TRM, valor del plan, etc.).</p>
+      </div>
+      <button class="toggle-btn" id="btnCalc" onclick="toggleCalc()">⚙️ Ver cálculos y supuestos</button>
+    </div>
+
+    <div class="panel" id="calcPanel" hidden>
+      <div class="grid">
+        <div><label>Plan de la Plataforma</label><input type="text" value="Gold" disabled></div>
+        <div><label>Valor Anual del Plan (USD)</label><input type="number" id="planUSD" value="3000" min="0" step="100"><div class="hint">Incluye 10 usuarios. Más usuarios o tarjetas ajustan este valor.</div></div>
+        <div><label>Usuarios incluidos</label><input type="text" value="10 usuarios" disabled></div>
+        <div><label>TRM del día (COP/USD)</label><input type="number" id="trm" value="3163.76" step="0.01"><div class="hint">TRM oficial 21-oct-2026 (Banco de la República)</div></div>
+        <div><label>Gasto mensual en tarjetas (COP)</label><input type="number" id="gasto" value="7000000000" step="100000000"><div class="hint">Cupo solicitado para combustible: COP 7.000.000.000</div></div>
+        <div><label>Gravamen 4x1000 (GMF) · anual</label><input type="text" id="gmfPrev" disabled><div class="hint">Automático: gasto mensual × 12 × 0,4%</div></div>
+        <div><label>Cashback 1% · primeros 6 meses</label><input type="text" id="cbPrev" disabled><div class="hint">Automático: gasto mensual × 6 × 1%</div></div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-h"><h3>🧾 Ahorro por Automatización de Facturas</h3><label class="sw"><input type="checkbox" id="modFact"><span></span></label></div>
+        <div class="grid">
+          <div><label>Salario mensual operativo (COP)</label><input type="number" id="salario" value="3500000" step="100000"></div>
+          <div><label>Facturas procesadas al mes</label><input type="number" id="facturas" value="200"></div>
+          <div><label>Minutos por factura (captura manual)</label><input type="number" id="minutos" value="8"></div>
+          <div><label>Horas trabajadas al mes</label><input type="number" id="horas" value="160"></div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-h"><h3>🏧 Ahorro en Retiros en Efectivo</h3><label class="sw"><input type="checkbox" id="modRet"><span></span></label></div>
+        <div class="grid">
+          <div><label>Monto de efectivo mensual (COP)</label><input type="number" id="efectivo" value="0" step="1000000"></div>
+          <div><label>Porcentaje de la comisión negociada (%) · vs. 3% tarifa estándar Jeeves</label><input type="number" id="comision" value="2" step="0.1"><div class="hint">vs. 3% tarifa estándar Jeeves — el ahorro aplica si lo negociado es menor</div></div>
+        </div>
+      </div>
+
+      <div class="note"><b>Supuestos:</b> el gasto mensual parte del cupo de COP 7.000MM mencionado para combustible; el consumo real puede ser menor (ajústalo para ver el efecto). Los valores de facturas/mes, salario operativo y horas son referenciales y no están confirmados con Renting Colombia. Fórmulas: GMF = gasto mensual × 12 × 0,004 · Cashback = gasto mensual × 6 × 1% (solo año 1) · Facturas = facturas × (min/60) × (salario ÷ horas) × 12 · Costo plataforma = valor plan USD × TRM · ROE = (ahorro − costo plataforma) ÷ costo plataforma.</div>
+    </div>
+
+    <div class="res-title">Ahorros por rubro · Anual</div>
+    <div class="grid" id="rubros">
+      <div class="rs"><small>Ahorro 4x1000 (GMF)</small><b id="rGMF">—</b></div>
+      <div class="rs"><small>Cashback 1% · primeros 6 meses</small><b id="rCB">—</b></div>
+      <div class="rs" id="cardFact" hidden><small>Automatización de Facturas</small><b id="rFact">—</b></div>
+      <div class="rs" id="cardRet" hidden><small>Retiros en Efectivo</small><b id="rRet">—</b></div>
+    </div>
+
+    <div class="tot">
+      <div class="tt"><small>Ahorro Total · Primer Año</small><div class="big" id="tY1">—</div><div class="net">Menos costo de plataforma (<span id="cost1">—</span>) = <b id="nY1">—</b> neto</div></div>
+      <div class="tt"><small>Ahorro Total · A partir del segundo año</small><div class="big" id="tY2">—</div><div class="net">Menos costo de plataforma (<span id="cost2">—</span>) = <b id="nY2">—</b> neto</div></div>
+    </div>
+
+    <div class="roe">
+      <div class="rr"><small>🏆 ROE · Primer Año</small><div class="big" id="roe1">—</div></div>
+      <div class="rr"><small>🏆 ROE · A partir del segundo año</small><div class="big" id="roe2">—</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><div><h2>Diagnóstico</h2><p>Lo que conversamos el 21 de octubre y cómo lo resuelve Jeeves.</p></div></div>
+    <div class="tbl"><table>
+      <tr><th>Frente</th><th>Hoy</th><th>Con Jeeves</th></tr>
+      <tr><td>Combustible</td><td>Pago a tu proveedor de combustible a través de su plataforma, con tarjetas corporativas virtuales.</td><td>Tarjeta virtual de tesorería exclusiva para combustible, encriptada, restringida a ese rubro y con horarios/días configurables.</td></tr>
+      <tr><td>Cupo y liquidez</td><td>Se necesita margen sobre el gasto mensual para seguir pagando mientras se liberan consumos ya facturados.</td><td>Línea revolvente: el cupo se ajusta en tiempo real desde la plataforma y cualquier pago anticipado lo libera de inmediato. 37 días, 0% interés.</td></tr>
+      <tr><td>SAP</td><td>Conciliación y pagos gestionados desde SAP.</td><td>Integración vía API o archivo de conciliación mensual con la misma estructura de SAP (centros de costo, cuentas, códigos GL).</td></tr>
+      <tr><td>Proveedores y legalizaciones</td><td>Anticipos de viajes internacionales legalizados de forma manual.</td><td>Agente de IA por WhatsApp para soportes en tiempo real y, como módulo opcional, Jeeves Pay con carga masiva desde SAP y doble aprobación.</td></tr>
+    </table></div>
+  </section>
+
+  <section>
+    <div class="sh"><div><h2>Resumen del plan</h2></div></div>
+    <div class="plan">
+      <div class="pc g">
+        <h3>Plan Gold · Proyecto Combustible</h3>
+        <div class="price">USD 3.000 <span style="font-size:15px;color:var(--mut);font-weight:500">/ año · 10 usuarios</span></div>
+        <ul>
+          <li>Tarjeta virtual de tesorería para combustible</li>
+          <li>Controles por rubro, monto, fechas y horarios</li>
+          <li>Captura de soportes y agente de IA por WhatsApp</li>
+          <li>Integración con SAP (API o conciliación)</li>
+          <li>KAM dedicado</li>
+        </ul>
+        <div class="warn">Esta cotización aplica únicamente al proyecto de combustible (tarjetas). Si desean implementar el proyecto de viáticos y pagos a proveedores, la cotización y el plan cambian. Propuesta dimensionada para 10 usuarios.</div>
+      </div>
+      <div class="pc">
+        <h3>Beneficios financieros</h3>
+        <div class="price" style="color:var(--green)">0% interés</div>
+        <ul>
+          <li>Hasta 37 días para pagar, a una sola cuota</li>
+          <li>Exención total del 4x1000</li>
+          <li>1% de cashback sobre el gasto · primeros 6 meses</li>
+          <li>Sin cuota de manejo ni seguros</li>
+          <li>Cupo revolvente, ajustable en tiempo real</li>
+        </ul>
+      </div>
+      <div class="pc">
+        <h3>Módulo opcional · Jeeves Pay</h3>
+        <div class="price" style="color:var(--txt);font-size:22px">Pagos a proveedores</div>
+        <ul>
+          <li>Dispersión desde el cupo a cuentas bancarias de proveedores</li>
+          <li>Carga masiva del archivo de pagos preparado en SAP</li>
+          <li>Flujo de doble aprobación (prepara / autoriza)</li>
+          <li>Proveedores guardados con NIT, banco y cuenta</li>
+        </ul>
+        <div class="warn" style="background:#141418;border-color:var(--bd);color:var(--mut)">No incluido en la cotización de tarjetas ni en el simulador. Se activa solo si Renting Colombia lo requiere; a diferencia de las tarjetas, este módulo tiene un costo de financiamiento diario que se cotiza por separado.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <b>Carlos Gómez</b> · Senior Enterprise AE · Jeeves Colombia<br>
+    carlos.gomez@tryjeeves.com · +57 316 480 1023<br><br>
+    Cifras referenciales sujetas al estudio de crédito y a las condiciones comerciales finales.
+  </footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>'$'+Math.round(n).toLocaleString('es-CO');
+const v=id=>parseFloat($(id).value)||0;
+function toggleCalc(){const p=$('calcPanel');p.hidden=!p.hidden;$('btnCalc').textContent=p.hidden?'⚙️ Ver cálculos y supuestos':'⚙️ Ocultar cálculos y supuestos';}
+function calc(){
+  const gasto=v('gasto'),trm=v('trm'),plan=v('planUSD');
+  const gmf=gasto*12*0.004;
+  const cb=gasto*6*0.01;
+  let fact=0;
+  if($('modFact').checked){const costoHora=v('horas')>0?v('salario')/v('horas'):0;fact=v('facturas')*(v('minutos')/60)*costoHora*12;}
+  let ret=0,retTxt='';
+  if($('modRet').checked){const pc=v('comision');if(pc<3){ret=(3-pc)/100*v('efectivo')*12;retTxt=fmt(ret);}else{retTxt='Sin ahorro (comisión ≥ 3%)';}}
+  const costo=plan*trm;
+  const t1=gmf+cb+fact+ret,t2=gmf+fact+ret;
+  const n1=t1-costo,n2=t2-costo;
+  $('gmfPrev').value=fmt(gmf);$('cbPrev').value=fmt(cb);
+  $('rGMF').textContent=fmt(gmf);$('rCB').textContent=fmt(cb);
+  $('rFact').textContent=fmt(fact);$('cardFact').hidden=!$('modFact').checked;
+  $('cardRet').hidden=!$('modRet').checked;$('rRet').textContent=retTxt||fmt(0);
+  $('tY1').textContent=fmt(t1);$('tY2').textContent=fmt(t2);
+  $('cost1').textContent=fmt(costo);$('cost2').textContent=fmt(costo);
+  $('nY1').textContent=fmt(n1);$('nY2').textContent=fmt(n2);
+  $('roe1').textContent=costo>0?Math.round(n1/costo*100).toLocaleString('es-CO')+'%':'—';
+  $('roe2').textContent=costo>0?Math.round(n2/costo*100).toLocaleString('es-CO')+'%':'—';
+}
+document.querySelectorAll('input').forEach(i=>{i.addEventListener('input',calc);i.addEventListener('change',calc);});
+calc();
+</script>
+</body>
+</html>
