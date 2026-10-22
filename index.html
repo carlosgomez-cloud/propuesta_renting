@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Renting Colombia × Jeeves · Simulador de Eficiencia Financiera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,6 +95,8 @@ footer b{color:var(--txt)}
 </style>
 </head>
 <body>
+<div id="gate" style="position:fixed;inset:0;background:#0B0B0E;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;font-family:Inter,system-ui,sans-serif"><form id="gf" style="background:#141418;border:1px solid #26262E;border-radius:18px;padding:30px 26px;width:100%;max-width:340px;text-align:center;color:#F5F5F7"><div style="font-weight:800;letter-spacing:.18em;font-size:20px">JEEVES</div><div style="color:#9C9CA6;font-size:14px;margin:8px 0 18px">Propuesta privada · Renting Colombia</div><input id="gp" type="password" placeholder="Clave de acceso" autocomplete="off" style="width:100%;background:#17171C;border:1px solid #26262E;color:#F5F5F7;border-radius:10px;padding:12px;font:500 15px Inter,sans-serif;margin-bottom:12px"><button type="submit" style="width:100%;background:#C9A84C;color:#0B0B0E;border:none;border-radius:10px;padding:12px;font:600 15px Inter,sans-serif;cursor:pointer">Ingresar</button><div id="ge" style="color:#ff6b6b;font-size:13px;margin-top:10px;min-height:16px"></div></form></div>
+<script>(function(){var H="a2c62ceb9372ea02034eed4f05347e34579706b864bd2ec90711cc818c2d65eb";function open(){var g=document.getElementById("gate");if(g)g.remove();}try{if(sessionStorage.getItem("rk")===H){open();return;}}catch(_){}document.getElementById("gf").addEventListener("submit",async function(e){e.preventDefault();var val=document.getElementById("gp").value.trim();var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(val));var h=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");if(h===H){try{sessionStorage.setItem("rk",H)}catch(_){}open();}else{document.getElementById("ge").textContent="Clave incorrecta";}});})();</script>
 <div class="wrap">
   <div class="top">
     <div class="brand">JEEVES<small>Propuesta para</small></div>
